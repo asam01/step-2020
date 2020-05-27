@@ -20,7 +20,6 @@ function getRandomFact() {
       ['I am minoring in Drama.', 'My favorite color is teal.', 'I love crime shows.', 'I love superhero movies.',
       'I am on the bhangra team at Carnegie Mellon University.'];
 
-    console.log("made array.");
 
   // Pick a random greeting.
   const fact = facts[Math.floor(Math.random() * facts.length)];
