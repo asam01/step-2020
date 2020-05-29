@@ -1,3 +1,9 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
@@ -5,13 +11,19 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
+#greeting-container {
+  margin-top: 20px;
+}
+
 h1 {
   text-align: center;
   color: lightpink;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#image-links a {
+  float: none;
+  text-align: center;
+  padding-right: 20px;
 }
 
 /* stylize navigation bar */
@@ -35,19 +47,16 @@ h1 {
   background-color: lightgrey;
 }
 
-#image-links a {
-  float: none;
-  text-align: center;
-  padding-right: 20px;
-}
-
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /*image gallery styling */
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
 
 /* grid: Four equal columns that floats next to each other */
 .column {
@@ -55,7 +64,7 @@ h1 {
   width: 25%;
 }
 
-/* Style the images inside the grid */
+/* Style images inside the grid */
 .column img {
   opacity: 0.8;
   cursor: pointer;
@@ -63,12 +72,6 @@ h1 {
 
 .column img:hover {
   opacity: 1;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
 }
 
 .gal-container {
@@ -85,11 +88,8 @@ h1 {
   font-size: 20px;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-size: 35px;
-  cursor: pointer;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
