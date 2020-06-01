@@ -35,3 +35,10 @@ function fn(imgs) {
 
   expandImg.parentElement.style.display = "block";
 }
+
+// get a message to display using fetch
+async function getMessage() {
+  const response = await fetch('/data');
+  const message = await response.text();
+  document.getElementById('message-container').innerText = message;
+}
