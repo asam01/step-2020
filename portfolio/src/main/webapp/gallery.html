@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    
+  <div class="nav-links">
+    <a href="/index.html"><b>Home</b></a>
+    <a href="/about.html"><b>About</b></a>
+    <a href="/contact.html"><b>Contact</b></a>
+    <a href="/gallery.html"><b>Gallery</b></a>
+  </div>
+
+  <h1>Gallery</h1>
+
+  <div class="row">
+    <div class="column">
+      <img class="center" src="/images/lukas.jpg" alt="Lukas" style="width:30%;height:30%;" onclick="fn(this)">
+    </div>
+
+    <div class="column">
+      <img class="center" src="/images/me.jpg" alt="Me" style="width:30%;height:30%;" onclick="fn(this)">
+    </div>
+
+    <div class="column">
+      <img class="center" src="/images/shoes.jpg" alt="NYO2" style="width:30%;height:30%;" onclick="fn(this)">
+    </div>
+
+    <div class="column">
+      <img class="center" src="/images/ice-cream.jpg" alt="Ice Cream" style="width:30%;height:30%;" onclick="fn(this)">
+    </div>
+  </div>
+
+  <div class="gal-container">
+    <span onclick="this.parentElement.style.display='none'" class="close-button"> ×; </span>
+    <img class="center" id="expanded-img" style="width:25%;height:25%;">
+    <div class="center" id="img-text"></div>
+  </div>
+  </body>
+</html>
