@@ -22,33 +22,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import com.google.gson.Gson;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** handles comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
-  private List<String> messages;
+    
+  private List<String> comments;
 
   @Override
   public void init() {
-    messages = new ArrayList<String>();
-    messages.add("Welcome to my website!");
-    messages.add("How are you doing?");
-    messages.add("Hello there!");
+    comments = new ArrayList<String>();
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    // convert list of messages to JSON
-    String json = convertToJson(messages);
+    response.setContentType("application/json");
 
-    response.setContentType("application/json;"); // no longer text/html
-    response.getWriter().println(messages);
+    // convert arraylist into json
+    String json = new Gson().toJson(comments);
+    response.getWriter().println(json);
   }
 
-  private String convertToJson(List<String> L) {
-    Gson gson = new Gson();
-    String json = gson.toJson(L);
-    return json;
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+    // get user comment
+    String input = request.getParameter("text-input");
+
+    comments.add(input);
+    response.sendRedirect("/forum.html"); // send back to forum page
   }
 }
