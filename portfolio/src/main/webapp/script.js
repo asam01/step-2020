@@ -40,6 +40,8 @@ async function getComments() {
   const response = await fetch('/data');
   const comments = await response.json();
 
+  console.log(comments);
+
   // get each comment as its own list element
   const allComments = document.getElementById('forum-container');
   comments.forEach((comment) => {

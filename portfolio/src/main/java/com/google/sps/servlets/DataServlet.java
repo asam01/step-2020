@@ -27,18 +27,32 @@ import com.google.gson.Gson;
 public class DataServlet extends HttpServlet {
     
   private List<String> comments;
+  private List<String> names;
 
   @Override
   public void init() {
     comments = new ArrayList<String>();
+    names = new ArrayList<String>();
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
 
+    List<String> namesAndComments = new ArrayList<String>();
+
+    assert names.size() == comments.size() : "error";
+    for(int index=0; index<names.size(); index++) {
+      String name = names.get(index);
+      String comment = comments.get(index);
+
+      namesAndComments.add(name + ": " + comment);
+    }
+
     // convert arraylist into json
-    String json = new Gson().toJson(comments);
+    //String json = new Gson().toJson(comments);
+
+    String json = new Gson().toJson(namesAndComments);
     response.getWriter().println(json);
   }
 
@@ -46,9 +60,19 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     // get user comment
-    String input = request.getParameter("text-input");
+    String comment = request.getParameter("text-input");
+    String name = getNameParameter(request, "name"); // blank name
 
-    comments.add(input);
+    comments.add(comment);
+    names.add(name);
     response.sendRedirect("/forum.html"); // send back to forum page
+  }
+
+  /* fill in No-Name if comment is entered without name  */
+  public String getNameParameter(HttpServletRequest request, String name) {
+    String val = request.getParameter(name);
+    if (val == null)
+      return "No-Name";
+    return val;
   }
 }
