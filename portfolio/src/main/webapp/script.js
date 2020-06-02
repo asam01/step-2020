@@ -36,9 +36,20 @@ function fn(imgs) {
   expandImg.parentElement.style.display = "block";
 }
 
-// get a message to display using fetch
-async function getMessage() {
+async function getComments() {
   const response = await fetch('/data');
-  const message = await response.text();
-  document.getElementById('message-container').innerText = message;
+  const comments = await response.json();
+
+  // get each comment as its own list element
+  const allComments = document.getElementById('forum-container');
+  comments.forEach((comment) => {
+    allComments.appendChild(createListElement(comment))
+  });
+}
+
+/* separates each term in arraylist onto separate line */
+function createListElement(text) {
+  const liElem = document.createElement('li');
+  liElem.innerText = text;
+  return liElem;
 }
