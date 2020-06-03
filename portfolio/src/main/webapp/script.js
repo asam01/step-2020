@@ -56,9 +56,9 @@ function createListElement(text) {
 
 /* make sure all elements of form are filled */
 function validate() {
-    
-  var name = document.getElementsByName('name');
-  var comment = document.getElementsByName('text-input');
+
+  var name = document.getElementById('usr-name');
+  var comment = document.getElementById('usr-comment');
 
   if (!name.value || !comment.value) {
     window.alert("One or more fields left blank.");
