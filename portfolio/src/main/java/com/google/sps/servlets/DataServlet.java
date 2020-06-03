@@ -14,46 +14,41 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Pair;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import com.google.gson.Gson;
 
 /** handles comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     
-  private List<String> comments;
-  private List<String> names;
+  // stores both the name and the comment
+  private List<Pair<String, String>> commentData; 
 
   @Override
   public void init() {
-    comments = new ArrayList<String>();
-    names = new ArrayList<String>();
+    commentData = new ArrayList<Pair<String, String>>();
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
     response.setContentType("application/json");
 
-    List<String> namesAndComments = new ArrayList<String>();
+    List<String> allData = new ArrayList<String>();
 
-    assert names.size() == comments.size() : "error";
-    for(int index=0; index<names.size(); index++) {
-      String name = names.get(index);
-      String comment = comments.get(index);
-
-      namesAndComments.add(name + ": " + comment);
+    for (Pair p : commentData) {
+      allData.add(p.toString());
     }
 
-    // convert arraylist into json
-    //String json = new Gson().toJson(comments);
-
-    String json = new Gson().toJson(namesAndComments);
-    response.getWriter().println(json);
+    String json = new Gson().toJson(allData);
+    response.getWriter().println(json); 
   }
 
   @Override
@@ -61,18 +56,9 @@ public class DataServlet extends HttpServlet {
     
     // get user comment
     String comment = request.getParameter("text-input");
-    String name = getNameParameter(request, "name"); // blank name
+    String name = request.getParameter("name");
 
-    comments.add(comment);
-    names.add(name);
+    commentData.add(new Pair<String, String>(name, comment));
     response.sendRedirect("/forum.html"); // send back to forum page
-  }
-
-  /* fill in No-Name if comment is entered without name  */
-  public String getNameParameter(HttpServletRequest request, String name) {
-    String val = request.getParameter(name);
-    if (val == null)
-      return "No-Name";
-    return val;
   }
 }

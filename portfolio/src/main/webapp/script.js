@@ -40,8 +40,6 @@ async function getComments() {
   const response = await fetch('/data');
   const comments = await response.json();
 
-  console.log(comments);
-
   // get each comment as its own list element
   const allComments = document.getElementById('forum-container');
   comments.forEach((comment) => {
@@ -54,4 +52,17 @@ function createListElement(text) {
   const liElem = document.createElement('li');
   liElem.innerText = text;
   return liElem;
+}
+
+/* make sure all elements of form are filled */
+function validate() {
+    
+  var name = document.getElementsByName('name');
+  var comment = document.getElementsByName('text-input');
+
+  if (!name.value || !comment.value) {
+    window.alert("One or more fields left blank.");
+    return false;
+  }
+  return true;
 }
