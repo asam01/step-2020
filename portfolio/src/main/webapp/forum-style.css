@@ -1,21 +1,18 @@
-/* REMEMBER TO ALPHABETIZE */
-
 input[type=text], textarea {
-  width: 50%;
-  resize: vertical;
-  padding: 12px;
   border: 1px solid gray;
   border-radius: 12px;
   display: block;
+  padding: 12px;
+  resize: vertical;
+  width: 50%;
 }
 
 input[type=submit] {
   background-color: lightpink;
-  color: white;
   border: none;
-  padding: 12px 20px;
+  color: white;
   cursor: pointer;
-  /*float: none; /* potentially change */
+  padding: 12px 20px;
 }
 
 input[type=submit]:hover {
@@ -23,6 +20,19 @@ input[type=submit]:hover {
 }
 
 label {
-  width: 50%;
   display: block;
+  width: 50%;
+}
+
+.task {
+  border: thin solid lightpink;
+  display: flex;
+  margin: auto;
+  padding: 10px;
+  width: 50%;
+
+}
+
+.task span {
+  flex-grow: 1;
 }
