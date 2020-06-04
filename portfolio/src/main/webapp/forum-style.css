@@ -1,0 +1,38 @@
+input[type=text], textarea {
+  border: 1px solid gray;
+  border-radius: 12px;
+  display: block;
+  padding: 12px;
+  resize: vertical;
+  width: 50%;
+}
+
+input[type=submit] {
+  background-color: lightpink;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 12px 20px;
+}
+
+input[type=submit]:hover {
+  background-color: gray;
+}
+
+label {
+  display: block;
+  width: 50%;
+}
+
+.task {
+  border: thin solid lightpink;
+  display: flex;
+  margin: auto;
+  padding: 10px;
+  width: 50%;
+
+}
+
+.task span {
+  flex-grow: 1;
+}
