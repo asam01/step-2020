@@ -53,3 +53,16 @@ function createListElement(text) {
   liElem.innerText = text;
   return liElem;
 }
+
+/* make sure all elements of form are filled */
+function validate() {
+
+  var name = document.getElementById('usr-name');
+  var comment = document.getElementById('usr-comment');
+
+  if (!name.value || !comment.value) {
+    window.alert("One or more fields left blank.");
+    return false;
+  }
+  return true;
+}

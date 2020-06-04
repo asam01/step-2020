@@ -19,10 +19,15 @@
 
     <h1>Forum</h1>
 
-    <form action="/data" method="POST">
+    <form action="/data" method="POST" onsubmit="return validate()">
+
+       <!-- name collection -->
+      <label>Name:</label>
+      <input type="text" name="name" id="usr-name">
+      <br><br>
 
       <label>Enter a comment:</label><br>
-      <textarea name="text-input" placeholder="My comment."></textarea>
+      <textarea name="text-input" id="usr-comment" placeholder="My comment."></textarea>
       <br>
       <input type="submit"/>
     </form>

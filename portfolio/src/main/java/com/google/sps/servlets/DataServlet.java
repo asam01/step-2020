@@ -14,41 +14,51 @@
 
 package com.google.sps.servlets;
 
+import com.google.sps.data.Pair;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import com.google.gson.Gson;
 
 /** handles comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     
-  private List<String> comments;
+  // stores both the name and the comment
+  private List<Pair<String, String>> commentData; 
 
   @Override
   public void init() {
-    comments = new ArrayList<String>();
+    commentData = new ArrayList<Pair<String, String>>();
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
     response.setContentType("application/json");
 
-    // convert arraylist into json
-    String json = new Gson().toJson(comments);
-    response.getWriter().println(json);
+    List<String> allData = new ArrayList<String>();
+
+    for (Pair p : commentData) {
+      allData.add(p.toString());
+    }
+
+    String json = new Gson().toJson(allData);
+    response.getWriter().println(json); 
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     // get user comment
-    String input = request.getParameter("text-input");
+    String comment = request.getParameter("text-input");
+    String name = request.getParameter("name");
 
-    comments.add(input);
+    commentData.add(new Pair<String, String>(name, comment));
     response.sendRedirect("/forum.html"); // send back to forum page
   }
 }
