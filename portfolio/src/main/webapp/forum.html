@@ -8,7 +8,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body onload="getComments()">
+  <body onload="getTasks()">
 
     <div class="nav-links">
       <a href="/index.html"><b>Home</b></a>
@@ -31,11 +31,11 @@
         <label class="center">Enter a comment:</label><br>
         <textarea name="text-input" id="usr-comment" placeholder="My comment." class="center"></textarea>
         <br>
-        <input type="submit" class="center" />
+        <input type="submit" class="center" /><br><br>
       </form>
 
       <!-- print out comments in list format -->
-      <ul id="forum-container"></ul>
+      <ul class="center" id="forum-container"></ul>
     </div>
 
   </body>
