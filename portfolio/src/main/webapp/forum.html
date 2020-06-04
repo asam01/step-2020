@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Forum</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="forum-style.css">
     <script src="script.js"></script>
   </head>
 
@@ -17,23 +18,25 @@
       <a href="/forum.html"><b>Forum</b></a>
     </div>
 
-    <h1>Forum</h1>
+    <div id="content">
+      <h1>Forum</h1>
 
-    <form action="/data" method="POST" onsubmit="return validate()">
+      <form action="/data" method="POST" onsubmit="return validate()">
 
-       <!-- name collection -->
-      <label>Name:</label>
-      <input type="text" name="name" id="usr-name">
-      <br><br>
+        <!-- name collection -->
+        <label class="center">Name:</label><br>
+        <input type="text" name="name" id="usr-name" placeholder="My name." class="center">
+        <br><br>
 
-      <label>Enter a comment:</label><br>
-      <textarea name="text-input" id="usr-comment" placeholder="My comment."></textarea>
-      <br>
-      <input type="submit"/>
-    </form>
+        <label class="center">Enter a comment:</label><br>
+        <textarea name="text-input" id="usr-comment" placeholder="My comment." class="center"></textarea>
+        <br>
+        <input type="submit" class="center" />
+      </form>
 
-    <!-- print out comments in list format -->
-    <ul id="forum-container"></ul>
+      <!-- print out comments in list format -->
+      <ul id="forum-container"></ul>
+    </div>
 
   </body>
 </html>
