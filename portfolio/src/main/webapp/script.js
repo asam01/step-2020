@@ -52,7 +52,7 @@ function createTaskElement(task) {
 
   const taskElement = document.createElement('li');
   taskElement.className = 'task';
-
+  
   const nameElement = document.createElement('span');
   nameElement.innerText = task.name;
 
