@@ -17,6 +17,7 @@ package com.google.sps.servlets;
 import com.google.sps.data.Pair;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import com.google.appengine.api.datastore.FetchOptions;
 
 /** handles comments data */
 @WebServlet("/data")
@@ -38,10 +40,12 @@ public class DataServlet extends HttpServlet {
     
   // stores both the name and the comment
   private List<Pair<String, String>> commentData; 
+  private int maxComments;
 
   @Override
   public void init() {
     commentData = new ArrayList<Pair<String, String>>();
+    maxComments = 5; // arbitrary default value
   }
 
   @Override
@@ -51,6 +55,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    /*
     List<Task> tasks = new ArrayList<Task>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
@@ -60,7 +65,20 @@ public class DataServlet extends HttpServlet {
 
       Task task = new Task(id, name, comment, timestamp);
       tasks.add(task);
-    }
+    } */
+
+    List<Entity> resultsList = results.asList(FetchOptions.Builder.withLimit(maxComments));
+
+    List<Task> tasks = new ArrayList<Task>();
+    for (Entity entity : resultsList) {
+      long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name") + ": ";
+      String comment = (String) entity.getProperty("comment");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Task task = new Task(id, name, comment, timestamp);
+      tasks.add(task);
+    } 
 
     response.setContentType("application/json");
     response.getWriter().println(new Gson().toJson(tasks));
