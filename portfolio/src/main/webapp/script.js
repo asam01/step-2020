@@ -13,9 +13,11 @@
 // limitations under the License.
 
 function getRandomFact() {
+
   const facts =
-      ['I am minoring in Drama.', 'My favorite color is teal.', 'I love crime shows.', 'I love superhero movies.',
-      'I am on the bhangra team at Carnegie Mellon University.'];
+      ['I am minoring in Drama.', 'My favorite color is teal.', 
+        'I love crime shows.', 'I love superhero movies.',
+        'I am on the bhangra team at Carnegie Mellon University.'];
 
   // Pick a random greeting.
   const fact = facts[Math.floor(Math.random() * facts.length)];
@@ -27,6 +29,7 @@ function getRandomFact() {
 
 // dealing with image gallery
 function fn(imgs) {
+
   var expandImg = document.getElementById("expanded-img");
   var imgText = document.getElementById("img-text");
 
@@ -36,48 +39,60 @@ function fn(imgs) {
   expandImg.parentElement.style.display = "block";
 }
 
-async function getTasks() {
+async function getComments() {
+
   const response = await fetch('/data');
-  const tasks = await response.json();
+  const comments = await response.json();
 
   // get each comment as its own list element
-  const taskList = document.getElementById('forum-container');
-  tasks.forEach((task) => {
-    taskList.appendChild(createTaskElement(task))
+  const commentList = document.getElementById('forum-container');
+  comments.forEach((comment) => {
+    commentList.appendChild(createCommentElement(comment))
   });
 }
 
 /* creates an element that represents a task */
-function createTaskElement(task) {
+function createCommentElement(comment) {
 
-  const taskElement = document.createElement('li');
-  taskElement.className = 'task';
+  const commentListElement = document.createElement('li');
+  commentListElement.className = 'comment';
   
   const nameElement = document.createElement('span');
-  nameElement.innerText = task.name;
+  nameElement.innerText = comment.name;
 
   const commentElement = document.createElement('span');
-  commentElement.innerText = task.comment;
+  commentElement.innerText = comment.comment;
 
   /* delete comment from forum */
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
-    deleteTask(task);
-    taskElement.remove();
+    deleteComment(comment);
+    commentListElement.remove();
   });
 
-  taskElement.appendChild(nameElement);
-  taskElement.appendChild(commentElement);
-  taskElement.appendChild(deleteButtonElement);
+  commentListElement.appendChild(nameElement);
+  commentListElement.appendChild(commentElement);
+  commentListElement.appendChild(deleteButtonElement);
 
-  return taskElement;
+  return commentListElement;
 }
 
-function deleteTask(task) {
+function deleteComment(comment) {
+
   const params = new URLSearchParams();
-  params.append('id', task.id);
-  fetch('/delete-task', {method: 'POST', body: params});
+  params.append('id', comment.id);
+  fetch('/delete-comment', {method: 'POST', body: params});
+}
+
+/* deletes data from server, then resets the page */
+function deleteAllData() {
+
+  fetch('/delete-data', {method: 'POST'}).then(() => {
+    getComments();
+  });
+  var commentList = document.getElementById('forum-container');
+  commentList.innerHTML = "";
 }
 
 /* make sure all elements of form are filled */
