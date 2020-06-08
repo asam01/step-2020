@@ -1,3 +1,11 @@
+input[type=number] {
+  border: 1px solid gray;
+  border-radius: 12px;
+  display: block;
+  padding: 12px;
+  width: 5%
+}
+
 input[type=text], textarea {
   border: 1px solid gray;
   border-radius: 12px;
@@ -7,7 +15,7 @@ input[type=text], textarea {
   width: 50%;
 }
 
-input[type=submit] {
+input[type=submit], button {
   background-color: lightpink;
   border: none;
   color: white;
@@ -24,7 +32,7 @@ label {
   width: 50%;
 }
 
-.task {
+.comment {
   border: thin solid lightpink;
   display: flex;
   margin: auto;
@@ -33,6 +41,6 @@ label {
 
 }
 
-.task span {
+.comment span {
   flex-grow: 1;
 }

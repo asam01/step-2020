@@ -8,7 +8,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body onload="getTasks()">
+  <body onload="getComments()">
 
     <div class="nav-links">
       <a href="/index.html"><b>Home</b></a>
@@ -30,9 +30,16 @@
 
         <label class="center">Enter a comment:</label><br>
         <textarea name="text-input" id="usr-comment" placeholder="My comment." class="center"></textarea>
-        <br>
+        <br><br>
+
+        <label class="center">Number of comments displayed:</label><br>
+        <input type="number" class="center" id="max-comments" name="num-comments" 
+          min="0" placeholder="10"><br>
+        
         <input type="submit" class="center" /><br><br>
       </form>
+
+      <button onclick="deleteAllData()" id="delete-all" class="center">Delete All Comments</button>
 
       <!-- print out comments in list format -->
       <ul class="center" id="forum-container"></ul>
