@@ -15,13 +15,21 @@
 package com.google.sps.servlets;
 
 import com.google.sps.data.Pair;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.sps.data.Task;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.Gson;
 
 /** handles comments data */
@@ -39,16 +47,23 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    response.setContentType("application/json");
+    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-    List<String> allData = new ArrayList<String>();
+    List<Task> tasks = new ArrayList<Task>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name") + ": ";
+      String comment = (String) entity.getProperty("comment");
+      long timestamp = (long) entity.getProperty("timestamp");
 
-    for (Pair p : commentData) {
-      allData.add(p.toString());
+      Task task = new Task(id, name, comment, timestamp);
+      tasks.add(task);
     }
 
-    String json = new Gson().toJson(allData);
-    response.getWriter().println(json); 
+    response.setContentType("application/json");
+    response.getWriter().println(new Gson().toJson(tasks));
   }
 
   @Override
@@ -57,8 +72,16 @@ public class DataServlet extends HttpServlet {
     // get user comment
     String comment = request.getParameter("text-input");
     String name = request.getParameter("name");
-
-    commentData.add(new Pair<String, String>(name, comment));
+    long timestamp = System.currentTimeMillis();
+    
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("name", name);
+    taskEntity.setProperty("comment", comment);
+    taskEntity.setProperty("timestamp", timestamp);
+    
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+    
     response.sendRedirect("/forum.html"); // send back to forum page
   }
 }

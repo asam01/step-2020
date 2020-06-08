@@ -36,22 +36,48 @@ function fn(imgs) {
   expandImg.parentElement.style.display = "block";
 }
 
-async function getComments() {
+async function getTasks() {
   const response = await fetch('/data');
-  const comments = await response.json();
+  const tasks = await response.json();
 
   // get each comment as its own list element
-  const allComments = document.getElementById('forum-container');
-  comments.forEach((comment) => {
-    allComments.appendChild(createListElement(comment))
+  const taskList = document.getElementById('forum-container');
+  tasks.forEach((task) => {
+    taskList.appendChild(createTaskElement(task))
   });
 }
 
-/* separates each term in arraylist onto separate line */
-function createListElement(text) {
-  const liElem = document.createElement('li');
-  liElem.innerText = text;
-  return liElem;
+/* creates an element that represents a task */
+function createTaskElement(task) {
+
+  const taskElement = document.createElement('li');
+  taskElement.className = 'task';
+  
+  const nameElement = document.createElement('span');
+  nameElement.innerText = task.name;
+
+  const commentElement = document.createElement('span');
+  commentElement.innerText = task.comment;
+
+  /* delete comment from forum */
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+    taskElement.remove();
+  });
+
+  taskElement.appendChild(nameElement);
+  taskElement.appendChild(commentElement);
+  taskElement.appendChild(deleteButtonElement);
+
+  return taskElement;
+}
+
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete-task', {method: 'POST', body: params});
 }
 
 /* make sure all elements of form are filled */
