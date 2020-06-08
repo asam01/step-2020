@@ -37,7 +37,6 @@ function fn(imgs) {
   imgText.innerHTML = imgs.alt; // backup text
 
   expandImg.parentElement.style.display = "block";
-  
 }
 
 async function getComments() {
