@@ -14,11 +14,6 @@
   margin: auto;
 }
 
-/*
-input[type=file] {
-  display: none;
-} */
-
 input[type=number] {
   border: 1px solid gray;
   border-radius: 12px;
