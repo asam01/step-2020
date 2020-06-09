@@ -1,3 +1,19 @@
+.comment {
+  border: thin solid lightpink;
+  display: flex;
+  margin: auto;
+  padding: 10px;
+  width: 50%;
+}
+
+.comment span {
+  flex-grow: 1;
+}
+
+#img-upload {
+  margin: auto;
+}
+
 input[type=number] {
   border: 1px solid gray;
   border-radius: 12px;
@@ -30,16 +46,4 @@ input[type=submit]:hover {
 label {
   display: block;
   width: 50%;
-}
-
-.comment {
-  border: thin solid lightpink;
-  display: flex;
-  margin: auto;
-  padding: 10px;
-  width: 50%;
-}
-
-.comment span {
-  flex-grow: 1;
 }
