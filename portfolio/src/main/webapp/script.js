@@ -109,6 +109,30 @@ function validate() {
 }
 
 function createMap() {
-  const map = new google.maps.Map(document.getElementById('map'),
-    {center: {lat: -34.397, lng: 150.644}, zoom: 8});
+  var googleCoordinates = {lat: 40.741, lng: -74.002};
+  var mapProp = {center : {lat: 40.135, lng: -75.244}, zoom: 7};
+  const map = new google.maps.Map(document.getElementById('map'), mapProp);
+
+  const googleNYMarker = new google.maps.Marker({
+    position: googleCoordinates,
+    map: map,
+    title: 'Google NYC'
+  });
+  
+  // info box pops up when Google NYC marker is clicked
+  var googleInfo = new google.maps.InfoWindow({content: 'Google NYC'});
+  googleNYMarker.addListener('click', () => {
+    googleInfo.open(map, googleNYMarker);
+  });
+
+  const homeMarker = new google.maps.Marker({
+    position: {lat: 39.084130, lng: -77.152329},
+    map: map,
+    title: 'Rockville'
+  });
+
+  var homeInfo = new google.maps.InfoWindow({content: 'Rockville'});
+  homeMarker.addListener('click', () => {
+    homeInfo.open(map, homeMarker);
+  });
 }
