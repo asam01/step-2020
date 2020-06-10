@@ -107,7 +107,6 @@ function validate() {
   }
   return true;
 }
-//var map;
 
 function createMap() {
   const map = new google.maps.Map(document.getElementById('map'),
