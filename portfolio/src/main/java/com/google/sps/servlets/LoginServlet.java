@@ -44,7 +44,6 @@ public class LoginServlet extends HttpServlet {
       response.getWriter().println("<p>Hello " + userService.getCurrentUser().getEmail() + "!</p>");
       String logoutUrl = userService.createLogoutURL("/forum.html");
       response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a></p>");
-      
     } 
     else {
 
