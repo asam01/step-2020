@@ -10,10 +10,6 @@
   flex-grow: 1;
 }
 
-#img-upload {
-  margin: auto;
-}
-
 input[type=number] {
   border: 1px solid gray;
   border-radius: 12px;
