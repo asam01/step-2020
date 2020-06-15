@@ -41,10 +41,11 @@ import com.google.appengine.api.datastore.FetchOptions;
 public class DataServlet extends HttpServlet {
     
   private int maxComments;
+  private static final int DEFAULT_MAX_COMMENTS = 10;
 
   @Override
   public void init() {
-    maxComments = 10; // arbitrary default value
+    maxComments = DEFAULT_MAX_COMMENTS;
   }
 
   @Override
