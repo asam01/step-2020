@@ -8,7 +8,7 @@
     <script src="script.js"></script>
   </head>
 
-  <body onload="getComments()">
+  <body onload="initComments()">
 
     <div class="nav-links">
       <a href="/index.html"><b>Home</b></a>
@@ -16,33 +16,39 @@
       <a href="/contact.html"><b>Contact</b></a>
       <a href="/gallery.html"><b>Gallery</b></a>
       <a href="/forum.html"><b>Forum</b></a>
+      <a href="/map.html"><b>Map</b></a>
     </div>
 
     <div id="content">
       <h1>Forum</h1>
 
-      <form action="/data" method="POST" id="form" onsubmit="return validate()">
+      <div id="login"></div>
 
-        <!-- name collection -->
-        <label class="center">Name:</label><br>
-        <input type="text" name="name" id="usr-name" placeholder="My name." class="center">
-        <br><br>
+      <div id="comment-container">
 
-        <label class="center">Enter a comment:</label><br>
-        <textarea name="text-input" id="usr-comment" placeholder="My comment." class="center"></textarea>
-        <br><br>
+        <form action="/data" method="POST" id="form" onsubmit="return validate()">
 
-        <label class="center">Number of comments displayed:</label><br>
-        <input type="number" class="center" id="max-comments" name="num-comments" 
-          min="0" placeholder="10"><br>
+          <!-- name collection -->
+          <label class="center">Name:</label><br>
+          <input type="text" name="name" id="usr-name" placeholder="My name." class="center">
+          <br><br>
+
+          <label class="center">Enter a comment:</label><br>
+          <textarea name="text-input" id="usr-comment" placeholder="My comment." class="center"></textarea>
+          <br><br>
+
+          <label class="center">Number of comments displayed:</label><br>
+          <input type="number" class="center" id="max-comments" name="num-comments" 
+            min="0" placeholder="10"><br>
         
-        <input type="submit" class="center" /><br><br>
-      </form>
+          <input type="submit" class="center" /><br>
+        </form>
 
-      <button onclick="deleteAllData()" id="delete-all" class="center">Delete All Comments</button>
+        <button onclick="deleteAllData()" id="delete-all" class="center">Delete All Comments</button>
 
-      <!-- print out comments in list format -->
-      <ul class="center" id="forum-container"></ul>
+        <!-- print out comments in list format -->
+        <ul class="center" id="forum-container"></ul>
+      </div>
     </div>
 
   </body>

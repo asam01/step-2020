@@ -136,3 +136,31 @@ function createMap() {
     homeInfo.open(map, homeMarker);
   });
 }
+
+async function getLoginStatus() {
+
+  const response = await fetch('/login-status');
+  const status = await response.json();
+ 
+  // user is logged in, allow them to view comments
+  if(status === "true") {
+    document.getElementById('comment-container').style.visibility = 'visible';
+  }
+  else {
+    document.getElementById('comment-container').style.visibility = 'hidden';
+  }
+}
+
+// gets login prompt
+async function userLogin() {
+  const response = await fetch('login');
+  const loginMessage = await response.text();
+
+  document.getElementById('login').innerHTML = loginMessage;
+}
+
+function initComments() {
+  getLoginStatus();
+  userLogin();
+  getComments();
+}
